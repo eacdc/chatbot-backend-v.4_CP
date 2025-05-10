@@ -1495,7 +1495,7 @@ export default function ChatbotLayout({ children }) {
                 e.target.src = `${process.env.PUBLIC_URL}/images/book-logoold.jpeg`;
               }}
             />
-            <span className="text-sm font-bold tracking-wide text-gray-800">TestYourLearning</span>
+            <span className="text-sm font-bold tracking-wide text-gray-800">JD Editions</span>
           </div>
         </div>
         
