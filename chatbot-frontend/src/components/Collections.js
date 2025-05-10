@@ -84,12 +84,12 @@ export default function Collections() {
       try {
         setLoading(true);
         
-        // Always filter by EXCELLENCE PUBLICATION
-        const url = `${API_ENDPOINTS.GET_BOOKS}?publisher=EXCELLENCE PUBLICATION`;
+        // Filter by JD publisher
+        const url = `${API_ENDPOINTS.GET_BOOKS}?publisher=JD`;
         
         const response = await axios.get(url);
         setBooks(response.data);
-        console.log(`Loaded ${response.data.length} books from EXCELLENCE PUBLICATION`);
+        console.log(`Loaded ${response.data.length} books from JD publisher`);
       } catch (error) {
         console.error("Error fetching books:", error);
         setError("Failed to fetch books");
