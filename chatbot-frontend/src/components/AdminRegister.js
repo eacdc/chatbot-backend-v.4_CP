@@ -37,6 +37,7 @@ const AdminRegister = () => {
         contactNumber: formData.contactNumber,
         designation: formData.designation,
         password: formData.password,
+        publisher: "JD" // Always set publisher to "JD"
       });
 
       setMessage(response.data.message);

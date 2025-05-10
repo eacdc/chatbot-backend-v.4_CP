@@ -71,10 +71,10 @@ export default function AdminCollections() {
       try {
         setLoading(true);
         
-        // Get books filtered by JD publisher
-        const response = await axios.get(`${API_ENDPOINTS.GET_BOOKS}?publisher=JD`);
+        // Get all books without publisher filter
+        const response = await axios.get(`${API_ENDPOINTS.GET_BOOKS}`);
         setBooks(response.data);
-        console.log(`Loaded ${response.data.length} books (showing only JD publisher)`);
+        console.log(`Loaded ${response.data.length} books`);
       } catch (error) {
         console.error("Error fetching books:", error);
         setError("Failed to fetch books");
