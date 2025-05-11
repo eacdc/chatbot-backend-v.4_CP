@@ -1870,7 +1870,7 @@ export default function ChatbotLayout({ children }) {
                   }}
                 >
                   <FaUserEdit className="h-5 w-5 text-gray-500" /> 
-                  <span className="text-gray-700">Profile</span>
+                  <span className="text-gray-700">{t('nav.profile')}</span>
                 </button>
                 <button
                   className="w-full flex items-center gap-2 p-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1880,14 +1880,14 @@ export default function ChatbotLayout({ children }) {
                   }}
                 >
                   <FaBook className="h-5 w-5 text-gray-500" /> 
-                  <span className="text-gray-700">Collections</span>
+                  <span className="text-gray-700">{t('nav.collections')}</span>
                 </button>
                 <button
                   className="w-full flex items-center gap-2 p-3 rounded-lg bg-red-50 hover:bg-red-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 text-red-600"
                   onClick={handleLogout}
                 >
                   <FaSignOutAlt className="h-5 w-5" /> 
-                  <span>Logout</span>
+                  <span>{t('nav.logout')}</span>
                 </button>
               </nav>
             </div>
@@ -1901,7 +1901,7 @@ export default function ChatbotLayout({ children }) {
                 onClick={() => navigate("/profile")}
               >
                 <FaUserEdit className="h-5 w-5 text-gray-500" /> 
-                <span className="text-gray-700">Profile</span>
+                <span className="text-gray-700">{t('nav.profile')}</span>
               </button>
               <button
                 className="w-full flex items-center gap-2 p-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1911,14 +1911,14 @@ export default function ChatbotLayout({ children }) {
                 }}
               >
                 <FaBook className="h-5 w-5 text-gray-500" /> 
-                <span className="text-gray-700">Collections</span>
+                <span className="text-gray-700">{t('nav.collections')}</span>
               </button>
               <button
                 className="w-full flex items-center gap-2 p-3 rounded-lg bg-red-50 hover:bg-red-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 text-red-600"
                 onClick={handleLogout}
               >
                 <FaSignOutAlt className="h-5 w-5" /> 
-                <span>Logout</span>
+                <span>{t('nav.logout')}</span>
               </button>
             </nav>
           </div>
@@ -2116,7 +2116,7 @@ export default function ChatbotLayout({ children }) {
                       >
                         <span className="flex items-center">
                           <FaMicrophone className="mr-2" /> 
-                          Voice Message
+                          {t('chat.recordVoiceMessage')}
                         </span>
                       </button>
                   ) : (
@@ -2125,7 +2125,7 @@ export default function ChatbotLayout({ children }) {
                       onClick={stopRecording}
                     >
                       <FaStop className="mr-2" /> 
-                      Stop Recording
+                      {t('chat.stopRecording')}
                     </button>
                   )}
                 </div>

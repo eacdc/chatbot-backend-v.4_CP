@@ -21,6 +21,8 @@ const translations = {
     refresh: "Actualiser",
     yes: "Oui",
     no: "Non",
+    notSet: "Non défini",
+    unknown: "Inconnu",
   },
   
   // Authentication
@@ -80,6 +82,7 @@ const translations = {
     startTest: "Commencer le test",
     showChapters: "Afficher les chapitres",
     chooseDifferentChapter: "Choisir un autre chapitre",
+    recordVoiceMessage: "Message vocal",
   },
   
   // Books and collections
@@ -110,6 +113,9 @@ const translations = {
     viewAndManage: "Consultez et gérez les informations de votre compte",
     accountInfo: "Informations du compte",
     personalInfo: "Informations personnelles",
+    additionalInfo: "Informations supplémentaires",
+    scoresAndProgress: "Scores et progression",
+    phoneNumber: "Numéro de téléphone",
     settings: "Paramètres",
     editProfile: "Modifier le profil",
     activity: "Activité",
@@ -137,6 +143,10 @@ const translations = {
     completed: "Terminé",
     inProgress: "En cours",
     notStarted: "Non commencé",
+    yourAssessmentScores: "Vos scores d'évaluation",
+    noScores: "Vous n'avez pas encore effectué d'évaluations.",
+    completeAssessments: "Complétez les évaluations des chapitres pour voir vos scores ici.",
+    accountType: "Type de compte",
   },
   
   // Admin section
@@ -153,6 +163,13 @@ const translations = {
     processBatch: "Traiter par lots",
     batchProcessing: "Traitement par lots...",
     enterRawText: "Entrez le contenu du texte brut ici...",
+  },
+  
+  // Navigation
+  nav: {
+    profile: "Profil",
+    collections: "Collections",
+    logout: "Déconnexion",
   }
 };
 

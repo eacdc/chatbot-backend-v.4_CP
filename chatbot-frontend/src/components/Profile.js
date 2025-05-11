@@ -256,36 +256,36 @@ const Profile = () => {
           {/* Personal Information Card - Always visible below the header */}
           <div className="relative px-8 -mt-12 mb-6 z-10">
             <div className="bg-white rounded-xl shadow-md p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Personal Information</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">{t('profile.personalInfo')}</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-1">Username</label>
-                  <p className="text-gray-900 text-lg">{userData?.username || "Not set"}</p>
+                  <label className="block text-sm font-medium text-gray-500 mb-1">{t('auth.username')}</label>
+                  <p className="text-gray-900 text-lg">{userData?.username || t('common.notSet')}</p>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-1">Full Name</label>
-                  <p className="text-gray-900 text-lg">{userData?.fullname || "Not set"}</p>
+                  <label className="block text-sm font-medium text-gray-500 mb-1">{t('auth.fullName')}</label>
+                  <p className="text-gray-900 text-lg">{userData?.fullname || t('common.notSet')}</p>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-1">Email Address</label>
-                  <p className="text-gray-900 text-lg">{userData?.email || "Not set"}</p>
+                  <label className="block text-sm font-medium text-gray-500 mb-1">{t('auth.email')}</label>
+                  <p className="text-gray-900 text-lg">{userData?.email || t('common.notSet')}</p>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-1">Phone Number</label>
-                  <p className="text-gray-900 text-lg">{userData?.phone || "Not set"}</p>
+                  <label className="block text-sm font-medium text-gray-500 mb-1">{t('profile.phoneNumber')}</label>
+                  <p className="text-gray-900 text-lg">{userData?.phone || t('common.notSet')}</p>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-1">Account Type</label>
-                  <p className="text-gray-900 text-lg">{getRoleDisplay(userData?.role) || "Not set"}</p>
+                  <label className="block text-sm font-medium text-gray-500 mb-1">{t('profile.accountType')}</label>
+                  <p className="text-gray-900 text-lg">{getRoleDisplay(userData?.role) || t('common.notSet')}</p>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-1">Member Since</label>
+                  <label className="block text-sm font-medium text-gray-500 mb-1">{t('profile.memberSince')}</label>
                   <p className="text-gray-900 text-lg">
                     {userData?.createdAt 
                       ? new Date(userData.createdAt).toLocaleDateString('en-US', { 
@@ -293,7 +293,7 @@ const Profile = () => {
                           month: 'long', 
                           day: 'numeric' 
                         }) 
-                      : "Unknown"}
+                      : t('common.unknown')}
                   </p>
                 </div>
               </div>
@@ -311,7 +311,7 @@ const Profile = () => {
                     : "text-gray-600 hover:text-blue-500"
                 }`}
               >
-                Additional Info
+                {t('profile.additionalInfo')}
               </button>
               <button
                 onClick={() => setActiveTab("scores")}
@@ -321,7 +321,7 @@ const Profile = () => {
                     : "text-gray-600 hover:text-blue-500"
                 }`}
               >
-                Scores & Progress
+                {t('profile.scoresAndProgress')}
               </button>
             </div>
           </div>
@@ -331,20 +331,20 @@ const Profile = () => {
             {activeTab === "scores" && (
               <div className="scores-container">
                 {loadingScores ? (
-                  <div className="loading">Loading your scores...</div>
+                  <div className="loading">{t('profile.loading')}</div>
                 ) : scores.length > 0 ? (
                   <div className="scores-list">
-                    <h3>Your Assessment Scores</h3>
+                    <h3>{t('profile.yourAssessmentScores')}</h3>
                     {scores.map((score, index) => (
                       <div key={index} className="score-card">
                         <div className="score-header">
-                          <h4>{score.chapterId?.title || 'Unknown Chapter'}</h4>
+                          <h4>{score.chapterId?.title || t('common.unknown')}</h4>
                           <span className={`completion-badge ${score.completionStatus}`}>
                             {score.completionLabel}
                           </span>
                         </div>
                         <div className="score-details">
-                          <p>Book: {score.bookId?.title || 'Unknown'}</p>
+                          <p>Book: {score.bookId?.title || t('common.unknown')}</p>
                           <p>Subject: {score.bookId?.subject || 'N/A'}</p>
                           <p>Grade: {score.bookId?.grade || 'N/A'}</p>
                           <p>Questions: {score.questionsProgress}</p>
@@ -357,8 +357,8 @@ const Profile = () => {
                   </div>
                 ) : (
                   <div className="no-scores">
-                    <p>You haven't taken any assessments yet.</p>
-                    <p>Complete chapter assessments to see your scores here.</p>
+                    <p>{t('profile.noScores')}</p>
+                    <p>{t('profile.completeAssessments')}</p>
                   </div>
                 )}
               </div>
