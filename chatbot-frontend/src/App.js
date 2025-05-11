@@ -14,6 +14,7 @@ import AdminCollections from "./components/AdminCollections"; // Import the Admi
 import Profile from "./components/Profile"; // Import the Profile page
 import { setupActivityTracking } from "./utils/auth"; // Import auth utilities
 import { ThemeProvider } from "./ThemeContext"; // Import ThemeProvider
+import { setLanguage } from "./translations"; // Import translation utilities
 import "./App.css";
 
 // Custom component for admin routes protection
@@ -25,6 +26,18 @@ const ProtectedAdminRoute = ({ element }) => {
 function App() {
   // Check if user is authenticated directly from localStorage
   const userIsAuthenticated = !!localStorage.getItem("token");
+
+  // Initialize translations
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('preferredLanguage');
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    } else {
+      // Default to French
+      setLanguage('fr');
+      localStorage.setItem('preferredLanguage', 'fr');
+    }
+  }, []);
 
   // Handle redirects from 404.html
   useEffect(() => {

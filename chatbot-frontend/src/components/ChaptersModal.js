@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { API_ENDPOINTS } from "../config";
 import adminAxiosInstance from "../utils/adminAxios";
+import { t } from "../translations";
 
 const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => {
   // State for notification and chapter deletion
@@ -37,7 +38,7 @@ const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => 
 
   // Handle chapter deletion
   const handleDeleteChapter = async (chapterId) => {
-    if (window.confirm("Are you sure you want to delete this chapter? This action cannot be undone.")) {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer ce chapitre ? Cette action ne peut pas être annulée.")) {
       try {
         setLoading(true);
         
@@ -51,7 +52,7 @@ const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => 
         setNotification({
           show: true,
           type: "success",
-          message: "Chapter deleted successfully"
+          message: "Chapitre supprimé avec succès"
         });
         
         // Hide notification after 3 seconds
@@ -65,7 +66,7 @@ const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => 
         setNotification({
           show: true,
           type: "error",
-          message: "Failed to delete chapter: " + (error.response?.data?.error || error.message)
+          message: "Échec de la suppression du chapitre : " + (error.response?.data?.error || error.message)
         });
         
         // Hide notification after 3 seconds
@@ -105,8 +106,8 @@ const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => 
               </div>
               <div>
                 <p className="font-medium text-gray-900">
-                  {notification.type === "success" ? "Success" : 
-                   notification.type === "info" ? "Information" : "Error"}
+                  {notification.type === "success" ? t('common.success') : 
+                   notification.type === "info" ? t('common.information') : t('common.error')}
                 </p>
                 <p className="mt-1 text-gray-600">{notification.message}</p>
               </div>
@@ -141,7 +142,7 @@ const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => 
           <div className="w-40 h-56 sm:w-48 sm:h-64 overflow-hidden rounded-lg shadow-lg border border-blue-100 flex-shrink-0 mb-6 sm:mb-0">
             <img
               src={fixImageUrl(book?.bookCoverImgLink)}
-              alt={book?.title || "Book cover"}
+              alt={book?.title || "Couverture du livre"}
               className="h-full w-auto object-contain"
               onError={(e) => {
                 e.target.onerror = null;
@@ -150,16 +151,16 @@ const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => 
             />
           </div>
           <div className="sm:ml-8 text-center sm:text-left">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{book?.title || "Book Title"}</h2>
-            <p className="text-sm sm:text-base text-gray-600 mb-2">Publisher: {book?.publisher || "Unknown"}</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{book?.title || "Titre du livre"}</h2>
+            <p className="text-sm sm:text-base text-gray-600 mb-2">{t('books.publisher')}: {book?.publisher || "Inconnu"}</p>
             {book?.grade && (
-              <p className="text-sm sm:text-base text-gray-600 mb-4">Grade: {book.grade}</p>
+              <p className="text-sm sm:text-base text-gray-600 mb-4">{t('books.grade')}: {book.grade}</p>
             )}
             <div className="inline-flex items-center justify-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              {localChapters?.length || 0} Chapters
+              {localChapters?.length || 0} {t('books.chapters')}
             </div>
           </div>
         </div>
@@ -170,7 +171,7 @@ const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => 
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
             </svg>
-            Chapters
+            {t('books.chapters')}
           </h3>
           
           {loading && (
@@ -198,7 +199,7 @@ const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => 
                         <button
                           onClick={() => handleDeleteChapter(chapter._id)}
                           className="p-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-                          title="Delete chapter"
+                          title="Supprimer le chapitre"
                           disabled={loading}
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -218,11 +219,11 @@ const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => 
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h4 className="text-lg font-medium text-gray-900 mb-2">No Chapters Available</h4>
+              <h4 className="text-lg font-medium text-gray-900 mb-2">{t('books.noChaptersFound')}</h4>
               <p className="text-gray-600">
                 {isAdmin 
-                  ? "No chapters have been added to this book yet. Add chapters from the Admin Dashboard to make them available."
-                  : "No chapters have been added to this book yet. Please check back later."
+                  ? "Aucun chapitre n'a encore été ajouté à ce livre. Ajoutez des chapitres depuis le tableau de bord d'administration pour les rendre disponibles."
+                  : "Aucun chapitre n'a encore été ajouté à ce livre. Veuillez vérifier plus tard."
                 }
               </p>
               {isAdmin && (
@@ -233,7 +234,7 @@ const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => 
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
-                  Add Chapter
+                  Ajouter un chapitre
                 </button>
               )}
             </div>
@@ -246,7 +247,7 @@ const ChaptersModal = ({ isOpen, onClose, book, chapters, isAdmin = false }) => 
             onClick={onClose}
             className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
           >
-            Close
+            {t('common.close')}
           </button>
         </div>
       </div>

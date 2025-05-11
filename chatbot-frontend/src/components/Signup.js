@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // For navigation
 import { API_ENDPOINTS } from "../config";
+import { t } from "../translations";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -56,11 +58,11 @@ const Signup = () => {
 
             // Show success message
             setError(""); // Clear any existing errors
-            alert("Signup successful! Redirecting to login...");
+            alert("Inscription réussie! Redirection vers la page de connexion...");
             navigate("/login");
         } catch (error) {
             console.error("Signup Error:", error.response?.data?.message || error.message);
-            setError(error.response?.data?.message || "Signup failed. Please try again.");
+            setError(error.response?.data?.message || "L'inscription a échoué. Veuillez réessayer.");
         } finally {
             setLoading(false);
         }
@@ -68,6 +70,11 @@ const Signup = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-50 via-white to-blue-50 p-4">
+            {/* Language Switcher */}
+            <div className="absolute top-4 right-4">
+                <LanguageSwitcher />
+            </div>
+            
             <div className="max-w-md w-full space-y-8 bg-white rounded-xl shadow-lg p-6 sm:p-8 border border-gray-200">
                 <div className="text-center">
                     <div className="flex justify-center">
@@ -75,11 +82,11 @@ const Signup = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                     </div>
-                    <h2 className="mt-4 text-3xl font-extrabold text-gray-900">Create your account</h2>
+                    <h2 className="mt-4 text-3xl font-extrabold text-gray-900">{t('auth.createAccount')}</h2>
                     <p className="mt-2 text-sm text-gray-600">
-                        Already have an account?{' '}
+                        {t('auth.alreadyHaveAccount')}{' '}
                         <a href="/login" className="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-200">
-                            Sign in
+                            {t('auth.signIn')}
                         </a>
                     </p>
                 </div>
@@ -102,59 +109,59 @@ const Signup = () => {
                 <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
                     <div className="space-y-4 rounded-md">
                         <div>
-                            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Username <span className="text-blue-600 font-medium">(Used for login)</span></label>
+                            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">{t('auth.usernameForLogin')}</label>
                             <input
                                 id="username"
                                 name="username"
                                 type="text"
                                 required
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-lg placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                placeholder="Choose a username"
+                                placeholder={t('auth.chooseUsername')}
                                 value={formData.username}
                                 onChange={handleChange}
                             />
-                            <p className="mt-1 text-xs text-gray-500">You'll use this username to log in to your account.</p>
+                            <p className="mt-1 text-xs text-gray-500">{t('auth.usernameHelp')}</p>
                         </div>
                         <div>
-                            <label htmlFor="fullname" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <label htmlFor="fullname" className="block text-sm font-medium text-gray-700 mb-1">{t('auth.fullName')}</label>
                             <input
                                 id="fullname"
                                 name="fullname"
                                 type="text"
                                 required
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-lg placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                placeholder="Your full name"
+                                placeholder={t('auth.yourFullName')}
                                 value={formData.fullname}
                                 onChange={handleChange}
                             />
                         </div>
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email address <span className="text-gray-500 font-normal">(Optional)</span></label>
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">{t('auth.emailOptional')}</label>
                             <input
                                 id="email"
                                 name="email"
                                 type="email"
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-lg placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                placeholder="you@example.com (optional)"
+                                placeholder={t('auth.yourEmail')}
                                 value={formData.email}
                                 onChange={handleChange}
                             />
                         </div>
                         <div>
-                            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Numéro de téléphone</label>
                             <input
                                 id="phone"
                                 name="phone"
                                 type="tel"
                                 required
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-lg placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                placeholder="Your phone number"
+                                placeholder="Votre numéro de téléphone"
                                 value={formData.phone}
                                 onChange={handleChange}
                             />
                         </div>
                         <div>
-                            <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                            <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">Rôle</label>
                             <select
                                 id="role"
                                 name="role"
@@ -163,13 +170,13 @@ const Signup = () => {
                                 value={formData.role}
                                 onChange={handleChange}
                             >
-                                <option value="">Select your role</option>
-                                <option value="teacher">Teacher</option>
-                                <option value="student">Student</option>
+                                <option value="">Sélectionnez votre rôle</option>
+                                <option value="teacher">Enseignant</option>
+                                <option value="student">Étudiant</option>
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="grade" className="block text-sm font-medium text-gray-700 mb-1">Grade Level</label>
+                            <label htmlFor="grade" className="block text-sm font-medium text-gray-700 mb-1">Niveau scolaire</label>
                             <select
                                 id="grade"
                                 name="grade"
@@ -180,33 +187,33 @@ const Signup = () => {
                             >
                                 {gradeOptions.map((grade) => (
                                     <option key={grade} value={grade}>
-                                        Grade {grade}
+                                        Niveau {grade}
                                     </option>
                                 ))}
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">{t('auth.password')}</label>
                             <input
                                 id="password"
                                 name="password"
                                 type="password"
                                 required
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-lg placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                placeholder="Choose a strong password"
+                                placeholder="Choisissez un mot de passe fort"
                                 value={formData.password}
                                 onChange={handleChange}
                             />
                         </div>
                         <div>
-                            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">{t('auth.confirmPassword')}</label>
                             <input
                                 id="confirmPassword"
                                 name="confirmPassword"
                                 type="password"
                                 required
                                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-lg placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                placeholder="Confirm your password"
+                                placeholder="Confirmez votre mot de passe"
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
                             />
@@ -227,10 +234,10 @@ const Signup = () => {
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
-                                    Creating Account...
+                                    {t('auth.creatingAccount')}
                                 </span>
                             ) : (
-                                "Create Account"
+                                t('auth.createMyAccount')
                             )}
                         </button>
                     </div>

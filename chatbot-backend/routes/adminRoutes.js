@@ -26,6 +26,7 @@ router.post("/register", async (req, res) => {
       email,
       password: hashedPassword,
       status: "pending", // 🚀 Pending approval
+      publisher: "JD" // Set publisher to "JD" by default
     });
 
     await newAdmin.save();
@@ -67,6 +68,12 @@ router.post("/login", async (req, res) => {
 
     if (admin.status !== "approved") {
       return res.status(403).json({ message: "Admin approval pending." });
+    }
+
+    // Check if admin belongs to JD publisher
+    if (admin.publisher !== "JD") {
+      console.log("❌ Admin is not from JD publisher. Found publisher:", admin.publisher);
+      return res.status(404).json({ message: "Admin not found" });
     }
 
     const isMatch = await bcrypt.compare(password, admin.password);

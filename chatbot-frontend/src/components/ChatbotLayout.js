@@ -10,6 +10,7 @@ import { io } from "socket.io-client";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import SubscribedBooksView from './SubscribedBooksView';
+import { t } from "../translations";
 
 export default function ChatbotLayout({ children }) {
   const [subscribedBooks, setSubscribedBooks] = useState([]);
@@ -2087,7 +2088,7 @@ export default function ChatbotLayout({ children }) {
                   <div className="relative flex-1">
                     <input
                       type="text"
-                      placeholder="Ask about this chapter..."
+                      placeholder={t('chat.askAboutChapter')}
                       className={`w-full pl-4 pr-10 py-3 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base font-sans ${isProcessing ? 'bg-gray-100 text-gray-500' : ''}`}
                       style={{ fontFamily: "'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif" }}
                       value={message}

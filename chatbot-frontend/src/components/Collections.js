@@ -4,6 +4,7 @@ import { API_ENDPOINTS } from "../config";
 import { updateLastActivity, isAuthenticated } from "../utils/auth"; // Import auth utilities
 import { useNavigate } from "react-router-dom"; // Import for navigation
 import ChaptersModal from "./ChaptersModal"; // Import the new ChaptersModal component
+import { t } from "../translations"; // Import translation utility
 
 export default function Collections() {
   const [books, setBooks] = useState([]);
@@ -321,8 +322,8 @@ export default function Collections() {
               </div>
               <div>
                 <p className="font-medium text-gray-900">
-                  {notification.type === "success" ? "Success" : 
-                   notification.type === "info" ? "Information" : "Error"}
+                  {notification.type === "success" ? t('common.success') : 
+                   notification.type === "info" ? t('common.information') : t('common.error')}
                 </p>
                 <p className="mt-1 text-gray-600">{notification.message}</p>
               </div>
@@ -351,8 +352,8 @@ export default function Collections() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-10">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Book Collections</h1>
-            <p className="mt-1 text-sm sm:text-base text-gray-500">Browse and subscribe to available books</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{t('books.bookCollections')}</h1>
+            <p className="mt-1 text-sm sm:text-base text-gray-500">{t('books.browseAndSubscribe')}</p>
           </div>
           
           <div className="mt-4 sm:mt-0">
@@ -363,7 +364,7 @@ export default function Collections() {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
               </svg>
-              Back to Chat
+              {t('chat.backToChat')}
             </a>
           </div>
         </div>
@@ -371,7 +372,7 @@ export default function Collections() {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600"></div>
-            <p className="mt-4 text-gray-600 font-medium">Loading collections...</p>
+            <p className="mt-4 text-gray-600 font-medium">{t('books.loadingCollections')}</p>
           </div>
         ) : (
           <>
@@ -402,7 +403,7 @@ export default function Collections() {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
                         </svg>
-                        View Chapters
+                        {t('chat.viewChapters')}
                       </button>
                       
                       {subscribedBookIds.includes(book._id) ? (
@@ -414,7 +415,7 @@ export default function Collections() {
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                           </svg>
-                          Unsubscribe
+                          {t('chat.unsubscribe')}
                         </button>
                       ) : (
                         <button
@@ -425,7 +426,7 @@ export default function Collections() {
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                           </svg>
-                          Subscribe
+                          {t('chat.subscribe')}
                         </button>
                       )}
                     </div>
@@ -442,8 +443,8 @@ export default function Collections() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-3">No Books Available</h2>
-                  <p className="text-gray-600 mb-6">There are currently no books in the collection. Check back soon as our library continues to grow!</p>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-3">{t('books.noBooksAvailable')}</h2>
+                  <p className="text-gray-600 mb-6">{t('books.noBooksMessage')}</p>
                   <div className="animate-pulse flex space-x-4 mt-4 justify-center">
                     <div className="h-3 w-20 bg-blue-200 rounded"></div>
                     <div className="h-3 w-16 bg-blue-300 rounded"></div>

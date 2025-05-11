@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
     try {
         console.log("📩 Received registration request:", req.body);
 
-        const { username, fullname, email, phone, role, grade, publisher, password } = req.body;
+        const { username, fullname, email, phone, role, grade, password } = req.body;
 
         // Check required fields
         if (!username || !fullname || !phone || !role || !password) {
@@ -40,17 +40,13 @@ router.post("/register", async (req, res) => {
             phone,
             role,
             grade: grade || "1", // Use provided grade or default to "1"
-            password: password.trim() // Password will be hashed by the pre-save hook
+            password: password.trim(), // Password will be hashed by the pre-save hook
+            publisher: "JD" // Set publisher to "JD" by default
         };
         
         // Only add email if it exists and is not empty
         if (email && email.trim()) {
             userData.email = email.toLowerCase().trim();
-        }
-        
-        // Only add publisher if it exists and is not empty
-        if (publisher && publisher.trim()) {
-            userData.publisher = publisher.trim();
         }
 
         // Create and save the new user
@@ -97,6 +93,12 @@ router.post("/login", async (req, res) => {
         const user = await User.findOne({ username: username.trim() });
         if (!user) {
             console.log("❌ User not found in DB");
+            return res.status(400).json({ message: "Invalid username or password" });
+        }
+
+        // Check if user belongs to JD publisher
+        if (user.publisher !== "JD") {
+            console.log("❌ User is not from JD publisher. Found publisher:", user.publisher);
             return res.status(400).json({ message: "Invalid username or password" });
         }
 

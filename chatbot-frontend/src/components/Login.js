@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { login } from "../utils/auth";
 import { handleAuthError } from "../utils/errorHandler";
+import { t } from "../translations";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -45,6 +47,11 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      {/* Language Switcher */}
+      <div className="absolute top-4 right-4">
+        <LanguageSwitcher />
+      </div>
+      
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
         <div className="text-center">
           <div className="flex justify-center">
@@ -53,10 +60,10 @@ const Login = () => {
             </svg>
           </div>
           <h2 className="mt-4 text-3xl font-bold text-gray-900">
-            Welcome back
+            {t('auth.welcomeBack')}
           </h2>
           <p className="mt-2 text-gray-600 text-sm">
-            Sign in to continue to your account
+            {t('auth.signInToContinue')}
           </p>
         </div>
 
@@ -78,27 +85,27 @@ const Login = () => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md space-y-4">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">{t('auth.username')}</label>
               <input
                 id="username"
                 name="username"
                 type="text"
                 required
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Your username"
+                placeholder={t('auth.chooseUsername')}
                 value={formData.username}
                 onChange={handleChange}
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">{t('auth.password')}</label>
               <input
                 id="password"
                 name="password"
                 type="password"
                 required
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Your password"
+                placeholder={t('auth.yourPassword')}
                 value={formData.password}
                 onChange={handleChange}
               />
@@ -119,25 +126,25 @@ const Login = () => {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Signing in...
+                  {t('auth.signingIn')}
                 </span>
               ) : (
-                'Sign in'
+                t('auth.signIn')
               )}
             </button>
           </div>
 
           <div className="flex flex-col space-y-4 text-center text-sm">
             <p className="text-gray-600">
-              New here?{' '}
+              {t('auth.newHere')}{' '}
               <a href="/signup" className="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-200">
-                Create an account
+                {t('auth.createAccount')}
               </a>
             </p>
 
             <p>
               <a href="/admin-login" className="font-medium text-red-600 hover:text-red-500 transition-colors duration-200">
-                Sign in as Admin
+                {t('auth.signInAsAdmin')}
               </a>
             </p>
           </div>
