@@ -1502,7 +1502,7 @@ export default function ChatbotLayout({ children }) {
         
         {/* Carousel of book covers - updated to match image style */}
         <div className="hidden md:block flex-1 mx-8 overflow-hidden carousel-container">
-          <h2 className="text-xl font-bold text-center text-blue-500 mb-2">Your Educational Resources</h2>
+          <h2 className="text-xl font-bold text-center text-blue-500 mb-2">{t('chat.yourEducationalResources')}</h2>
           <div className="h-48 overflow-hidden">
             {publisherBooks.length > 0 && (
               <div 
@@ -1768,7 +1768,7 @@ export default function ChatbotLayout({ children }) {
         <aside className={`${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transform transition-transform duration-300 ease-in-out lg:w-72 w-3/4 max-w-sm bg-white text-gray-800 fixed lg:static z-20 h-full overflow-y-auto shadow-sm flex flex-col flex-shrink-0 border-r border-gray-100`}>
           <div className="p-4 flex-1">
             <div className="flex justify-between items-center lg:hidden mb-4">
-              <h2 className="text-lg font-semibold text-gray-800">My Library</h2>
+              <h2 className="text-lg font-semibold text-gray-800">{t('chat.myLibrary')}</h2>
               <button 
                 className="p-2 rounded-full text-gray-500 hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-200"
                 onClick={() => setIsSidebarOpen(false)}
@@ -1780,7 +1780,7 @@ export default function ChatbotLayout({ children }) {
               </button>
             </div>
             
-            <h2 className="text-lg font-semibold mb-4 hidden lg:block text-gray-800">My Library</h2>
+            <h2 className="text-lg font-semibold mb-4 hidden lg:block text-gray-800">{t('chat.myLibrary')}</h2>
             
             {loading ? (
               <div className="py-10 flex justify-center">

@@ -23,6 +23,8 @@ const translations = {
     no: "Non",
     notSet: "Non défini",
     unknown: "Inconnu",
+    viewChapters: "Voir les chapitres",
+    backToChat: "Retour au chat",
   },
   
   // Authentication
@@ -83,6 +85,10 @@ const translations = {
     showChapters: "Afficher les chapitres",
     chooseDifferentChapter: "Choisir un autre chapitre",
     recordVoiceMessage: "Message vocal",
+    yourEducationalResources: "Vos ressources éducatives",
+    myLibrary: "Ma bibliothèque",
+    mySubscribedBooks: "Mes livres abonnés",
+    selectBookToView: "Sélectionnez un livre pour voir ses chapitres et commencer les tests",
   },
   
   // Books and collections
