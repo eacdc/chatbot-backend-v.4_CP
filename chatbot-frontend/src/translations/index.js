@@ -7,8 +7,12 @@ const translations = {
   en
 };
 
-// Default language
-let currentLanguage = 'fr';
+// Default language - set to English
+let currentLanguage = 'en';
+
+// Check if we're on a mobile device
+const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+console.log('Translation module loaded - Is mobile:', isMobile);
 
 /**
  * Get a translation by key path
@@ -20,11 +24,22 @@ export const t = (keyPath, replacements = {}) => {
   const keys = keyPath.split('.');
   let translation = translations[currentLanguage];
   
+  // For backup if translation is missing in current language
+  let fallbackTranslation = translations['en']; // Always use English as fallback
+  
   // Navigate through the keys
   for (const key of keys) {
     if (!translation || !translation[key]) {
       console.warn(`Translation missing for key: ${keyPath}`);
-      return keyPath; // Return the key as fallback
+      
+      // Try to use English fallback
+      for (const fallbackKey of keys) {
+        if (!fallbackTranslation || !fallbackTranslation[fallbackKey]) {
+          return keyPath; // Return the key as last resort fallback
+        }
+        fallbackTranslation = fallbackTranslation[fallbackKey];
+      }
+      return fallbackTranslation; // Return English translation as fallback
     }
     translation = translation[key];
   }
@@ -48,8 +63,10 @@ export const t = (keyPath, replacements = {}) => {
 export const setLanguage = (lang) => {
   if (translations[lang]) {
     currentLanguage = lang;
+    console.log(`Language set to: ${lang}`);
     return true;
   }
+  console.warn(`Failed to set language: ${lang} - not available`);
   return false;
 };
 

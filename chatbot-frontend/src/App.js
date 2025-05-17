@@ -14,7 +14,7 @@ import AdminCollections from "./components/AdminCollections"; // Import the Admi
 import Profile from "./components/Profile"; // Import the Profile page
 import { setupActivityTracking } from "./utils/auth"; // Import auth utilities
 import { ThemeProvider } from "./ThemeContext"; // Import ThemeProvider
-import { setLanguage } from "./translations"; // Import translation utilities
+import { setLanguage, getCurrentLanguage } from "./translations"; // Import translation utilities
 import "./App.css";
 
 // Custom component for admin routes protection
@@ -30,6 +30,13 @@ function App() {
   // Initialize translations
   useEffect(() => {
     const savedLanguage = localStorage.getItem('preferredLanguage');
+    // Log for debugging
+    console.log('Device info:', {
+      isMobile: /Mobi|Android/i.test(navigator.userAgent),
+      userAgent: navigator.userAgent,
+      savedLanguage: savedLanguage
+    });
+    
     if (savedLanguage) {
       setLanguage(savedLanguage);
     } else {
@@ -37,6 +44,9 @@ function App() {
       setLanguage('en');
       localStorage.setItem('preferredLanguage', 'en');
     }
+    
+    // Log the current language after setting
+    console.log('Current language set to:', getCurrentLanguage());
   }, []);
 
   // Handle redirects from 404.html
