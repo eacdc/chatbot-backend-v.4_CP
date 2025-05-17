@@ -21,6 +21,10 @@ const translations = {
     refresh: "Refresh",
     yes: "Yes",
     no: "No",
+    notSet: "Not set",
+    unknown: "Unknown",
+    viewChapters: "View Chapters",
+    backToChat: "Back to Chat",
   },
   
   // Authentication
@@ -80,6 +84,11 @@ const translations = {
     startTest: "Start Test",
     showChapters: "Show Chapters",
     chooseDifferentChapter: "Choose different chapter",
+    recordVoiceMessage: "Voice Message",
+    yourEducationalResources: "Your Educational Resources",
+    myLibrary: "My Library",
+    mySubscribedBooks: "My Subscribed Books",
+    selectBookToView: "Select a book to view its chapters and start tests",
   },
   
   // Books and collections
@@ -110,6 +119,9 @@ const translations = {
     viewAndManage: "View and manage your account information",
     accountInfo: "Account Information",
     personalInfo: "Personal Information",
+    additionalInfo: "Additional Information",
+    scoresAndProgress: "Scores and Progress",
+    phoneNumber: "Phone Number",
     settings: "Settings",
     editProfile: "Edit Profile",
     activity: "Activity",
@@ -137,6 +149,10 @@ const translations = {
     completed: "Completed",
     inProgress: "In Progress",
     notStarted: "Not Started",
+    yourAssessmentScores: "Your Assessment Scores",
+    noScores: "You haven't completed any assessments yet.",
+    completeAssessments: "Complete chapter assessments to see your scores here.",
+    accountType: "Account Type",
   },
   
   // Admin section
@@ -153,6 +169,13 @@ const translations = {
     processBatch: "Process Batch",
     batchProcessing: "Batch Processing...",
     enterRawText: "Enter raw text content here...",
+  },
+  
+  // Navigation
+  nav: {
+    profile: "Profile",
+    collections: "Collections",
+    logout: "Logout",
   }
 };
 
