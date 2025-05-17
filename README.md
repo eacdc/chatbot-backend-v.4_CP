@@ -84,4 +84,48 @@ The application is configured for deployment on Render. The `render.yaml` file c
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+# Chatbot Frontend Project
+
+This is a static frontend for the chatbot project that can be deployed to Render.
+
+## Deployment Instructions for Render
+
+1. Create a new Static Site on Render
+2. Connect your GitHub repository 
+3. Configure the build settings:
+   - Build Command: `cd chatbot-frontend && npm install && npm run build`
+   - Publish Directory: `chatbot-frontend/build`
+4. Add environment variables if needed
+5. Deploy the site
+
+## Local Development
+
+To run the project locally:
+
+```bash
+cd chatbot-frontend
+npm install
+npm start
+```
+
+This will start the development server at http://localhost:3000.
+
+## Important Note
+
+This is a static deployment of the frontend only. Backend functionality is not included.
+If you need API functionality, you'll need to:
+
+1. Update the `API_URL` in `chatbot-frontend/src/config.js` to point to your backend API.
+2. Deploy a separate backend service and connect it to this frontend.
+
+## Project Structure
+
+The project contains:
+- `chatbot-frontend/`: The React frontend application
+- `render.yaml`: Configuration file for Render deployment
+
+## License
+
+This project is licensed under the MIT License. 
