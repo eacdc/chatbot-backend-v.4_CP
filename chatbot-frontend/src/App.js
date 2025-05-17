@@ -33,9 +33,9 @@ function App() {
     if (savedLanguage) {
       setLanguage(savedLanguage);
     } else {
-      // Default to French
-      setLanguage('fr');
-      localStorage.setItem('preferredLanguage', 'fr');
+      // Default to English
+      setLanguage('en');
+      localStorage.setItem('preferredLanguage', 'en');
     }
   }, []);
 
