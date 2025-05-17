@@ -1,6 +1,6 @@
 // Static deployment configuration
-// Set this to your production backend URL if needed
-const API_URL = 'https://your-backend-api-url.com';
+// Update this to your actual backend API URL
+const API_URL = process.env.REACT_APP_API_URL || 'https://chatbot-backend-v-4.onrender.com';
 
 // These endpoints are kept for reference but won't be functional in a static deployment
 // without a connected backend
