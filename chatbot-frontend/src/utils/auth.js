@@ -22,7 +22,18 @@ export const login = async (credentials) => {
     console.log("Login response:", response.status, response.data ? 'Data received' : 'No data');
     console.log("Response data:", JSON.stringify(response.data, null, 2));
     
+    // Check if request is coming from the CP-specific domain
+    const isCPDomain = window.location.origin.includes('chatbot-backend-v-4-cp.onrender.com');
+    console.log("Request origin:", window.location.origin);
+    console.log("Is CP domain:", isCPDomain);
+    
     if (response.data && response.data.token) {
+      // If we're on the CP domain, only allow login for users with publisher "CP"
+      if (isCPDomain && response.data.publisher !== 'CP') {
+        console.error("Access denied: This domain is only for CP publisher users");
+        throw new Error("Access denied: This domain is only for CP publisher users");
+      }
+      
       console.log("Token received, storing in localStorage");
       
       // Ensure we clear any previous values first
@@ -31,6 +42,7 @@ export const login = async (credentials) => {
       localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('userGrade');
+      localStorage.removeItem('userPublisher');
       
       // Set new values
       localStorage.setItem('token', response.data.token);
@@ -40,6 +52,11 @@ export const login = async (credentials) => {
       // Store user grade if available
       if (response.data.grade) {
         localStorage.setItem('userGrade', response.data.grade);
+      }
+      
+      // Store user publisher if available
+      if (response.data.publisher) {
+        localStorage.setItem('userPublisher', response.data.publisher);
       }
       
       // Set last activity timestamp
@@ -53,7 +70,8 @@ export const login = async (credentials) => {
       console.log("LocalStorage after login:", {
         token: localStorage.getItem('token') ? 'Set' : 'Not set',
         userId: localStorage.getItem('userId'),
-        isAuthenticated: localStorage.getItem('isAuthenticated')
+        isAuthenticated: localStorage.getItem('isAuthenticated'),
+        publisher: localStorage.getItem('userPublisher')
       });
       
       return response.data;
@@ -203,6 +221,7 @@ export const logout = () => {
   localStorage.removeItem('isAuthenticated');
   localStorage.removeItem('lastActivityTime');
   localStorage.removeItem('userGrade');
+  localStorage.removeItem('userPublisher');
   
   // Clear session timeout interval
   if (window._sessionTimeoutInterval) {
