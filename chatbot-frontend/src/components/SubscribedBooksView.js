@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ChaptersModal from "./ChaptersModal";
 import { t } from "../translations"; // Import translation utility
+import axios from "axios";
+import { API_ENDPOINTS } from "../config";
 
 // Helper function to fix image URLs
 const fixImageUrl = (url) => {
@@ -9,7 +11,7 @@ const fixImageUrl = (url) => {
   // Check if the URL is using localhost
   if (url.includes('localhost:5000')) {
     // Replace localhost:5000 with the production URL
-    return url.replace('http://localhost:5000', 'https://chatbot-backend-v-4-1.onrender.com');
+    return url.replace('http://localhost:5000', 'https://chatbot-backend-v-4.onrender.com');
   }
   
   // If it's already using HTTP, convert to HTTPS
@@ -24,6 +26,55 @@ const SubscribedBooksView = ({ subscribedBooks, onSelectChapter, fetchChapters, 
   const [showChaptersModal, setShowChaptersModal] = useState(false);
   const [selectedBookData, setSelectedBookData] = useState(null);
   const [chapters, setChapters] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [userPublisher, setUserPublisher] = useState(null);
+
+  // Get user publisher and filter books
+  useEffect(() => {
+    const getUserPublisher = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        
+        // Try to get from localStorage first (faster)
+        let publisher = localStorage.getItem("userPublisher");
+        
+        // If not in localStorage, fetch from API
+        if (!publisher) {
+          const response = await axios.get(API_ENDPOINTS.GET_USER, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          
+          publisher = response.data.publisher;
+          
+          // Save to localStorage for future use
+          if (publisher) {
+            localStorage.setItem("userPublisher", publisher);
+          }
+        }
+        
+        setUserPublisher(publisher);
+      } catch (error) {
+        console.error("Error getting user publisher:", error);
+      }
+    };
+    
+    getUserPublisher();
+  }, []);
+  
+  // Filter subscribed books when user publisher is available
+  useEffect(() => {
+    if (subscribedBooks && userPublisher) {
+      // Filter to only show books with matching publisher
+      const filtered = subscribedBooks.filter(book => book.publisher === userPublisher);
+      setFilteredBooks(filtered);
+      console.log(`Filtered ${filtered.length} books matching publisher ${userPublisher} from ${subscribedBooks.length} total subscribed books`);
+    } else {
+      setFilteredBooks(subscribedBooks || []);
+    }
+  }, [subscribedBooks, userPublisher]);
 
   // Handler for viewing chapters of a book
   const handleViewChapters = async (book) => {
@@ -175,9 +226,9 @@ const SubscribedBooksView = ({ subscribedBooks, onSelectChapter, fetchChapters, 
           <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-600"></div>
           <p className="mt-4 text-gray-600 font-medium">{t('common.loading')}</p>
         </div>
-      ) : subscribedBooks.length > 0 ? (
+      ) : filteredBooks.length > 0 ? (
         <div className="px-4 sm:px-6 py-4 sm:py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-1 sm:gap-y-5 sm:gap-x-2 overflow-y-auto">
-          {subscribedBooks.map((book) => (
+          {filteredBooks.map((book) => (
             <div key={book._id} className="bg-white bg-opacity-95 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 flex flex-col min-h-[270px] sm:min-h-0 max-w-[240px] mx-auto">
               <div className="relative h-52 sm:h-48 overflow-hidden flex justify-center items-center">
                 <img 

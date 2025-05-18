@@ -141,7 +141,12 @@ export default function ChatbotLayout({ children }) {
           headers: { Authorization: `Bearer ${token}` }
         });
         
-        const userPublisher = "JD"; // Filter by JD publisher
+        const userPublisher = userResponse.data.publisher || localStorage.getItem("userPublisher");
+        
+        if (!userPublisher) {
+          console.log("Could not determine user publisher, no books will be loaded for carousel");
+          return;
+        }
         
         // Fetch books filtered by this publisher
         const booksResponse = await axios.get(`${API_ENDPOINTS.GET_BOOKS}?publisher=${userPublisher}`, {
@@ -149,7 +154,7 @@ export default function ChatbotLayout({ children }) {
         });
         
         setPublisherBooks(booksResponse.data);
-        console.log(`Fetched ${booksResponse.data.length} books from JD publisher for carousel display`);
+        console.log(`Fetched ${booksResponse.data.length} books from ${userPublisher} publisher for carousel display`);
       } catch (error) {
         console.error("Error fetching publisher books:", error);
       }

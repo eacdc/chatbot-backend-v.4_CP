@@ -85,12 +85,17 @@ export default function Collections() {
       try {
         setLoading(true);
         
-        // Filter by JD publisher
-        const url = `${API_ENDPOINTS.GET_BOOKS}?publisher=JD`;
+        if (!user || !user.publisher) {
+          // Wait for user data before fetching books
+          return;
+        }
+        
+        // Filter by user's publisher
+        const url = `${API_ENDPOINTS.GET_BOOKS}?publisher=${user.publisher}`;
         
         const response = await axios.get(url);
         setBooks(response.data);
-        console.log(`Loaded ${response.data.length} books from JD publisher`);
+        console.log(`Loaded ${response.data.length} books from ${user.publisher} publisher`);
       } catch (error) {
         console.error("Error fetching books:", error);
         setError("Failed to fetch books");
@@ -98,7 +103,10 @@ export default function Collections() {
         setLoading(false);
       }
     };
-    fetchBooks();
+    
+    if (user && user.publisher) {
+      fetchBooks();
+    }
   }, [user]);
 
   // Store user data in localStorage when user data is fetched
