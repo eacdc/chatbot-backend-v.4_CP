@@ -51,18 +51,18 @@ const Signup = () => {
                 delete userData.email;
             }
             
-            // Always set publisher to "JD" by default
-            userData.publisher = "JD";
+            // Always set publisher to "CP" by default
+            userData.publisher = "CP";
             
             const response = await axios.post(API_ENDPOINTS.USER_SIGNUP, userData);
 
             // Show success message
             setError(""); // Clear any existing errors
-            alert("Inscription réussie! Redirection vers la page de connexion...");
+            alert("Signup successful! Redirecting to login page...");
             navigate("/login");
         } catch (error) {
             console.error("Signup Error:", error.response?.data?.message || error.message);
-            setError(error.response?.data?.message || "L'inscription a échoué. Veuillez réessayer.");
+            setError(error.response?.data?.message || "Signup failed. Please try again.");
         } finally {
             setLoading(false);
         }
