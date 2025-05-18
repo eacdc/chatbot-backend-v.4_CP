@@ -43,11 +43,6 @@ export const handleApiError = (error) => {
  * @returns {string} Formatted authentication error message
  */
 export const handleAuthError = (error) => {
-  // Check for publisher restriction error first
-  if (error.message && error.message.includes("Access denied: This domain is only for CP publisher users")) {
-    return "Access denied: This domain is only for CP publisher users. Please use the correct portal for your account.";
-  }
-  
   if (error.response?.status === 401) {
     const message = error.response.data?.message;
     switch (message) {
